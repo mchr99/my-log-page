@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>GitHub Pages テスト</title>
-  </head>
-  <body>
-    <h1>こんにちは！これはGitHub Pagesからのページです</h1>
-    <button onclick="alert('ログを記録しました！')">ボタンを押す</button>
-  </body>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ログ記録ページ</title>
+  <script>
+    const logUrl = "https://script.google.com/macros/s/AKfycbwaWTWdooqF-UCUA9qYnnsCgJieSnfWeNq0cJB0rEKZNiqjJp0P6eang95lCyJF8Rw1eQ/exec";
+
+    function logButtonClick(type) {
+      fetch(logUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          timestamp: new Date().toISOString(),
+          buttonType: type
+        })
+      });
+
+      alert(`${type} を記録しました！`);
+    }
+  </script>
+</head>
+<body>
+  <h1>ボタンを選んでください</h1>
+  <button onclick="logButtonClick('HELP')">HELP</button>
+  <button onclick="logButtonClick('難しい')">難しい</button>
+</body>
 </html>

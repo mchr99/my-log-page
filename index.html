@@ -4,7 +4,15 @@
   <meta charset="UTF-8">
   <title>ログ記録ページ</title>
   <script>
-    const logUrl = "https://script.google.com/macros/s/AKfycbwaWTWdooqF-UCUA9qYnnsCgJieSnfWeNq0cJB0rEKZNiqjJp0P6eang95lCyJF8Rw1eQ/exec";
+    const logUrl = "https://script.google.com/macros/s/【GASのURL】/exec";
+
+    // URLから ?id=xxx を取得
+    function getQueryParam(key) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(key);
+    }
+
+    const userId = getQueryParam("id") || "guest";
 
     function logButtonClick(type) {
       fetch(logUrl, {
@@ -15,16 +23,17 @@
         },
         body: JSON.stringify({
           timestamp: new Date().toISOString(),
-          buttonType: type
+          buttonType: type,
+          userId: userId
         })
       });
 
-      alert(`${type} を記録しました！`);
+      alert(`ユーザーID「${userId}」で ${type} を記録しました！`);
     }
   </script>
 </head>
 <body>
-  <h1>ボタンを選んでください</h1>
+  <h1>選んでください</h1>
   <button onclick="logButtonClick('HELP')">HELP</button>
   <button onclick="logButtonClick('難しい')">難しい</button>
 </body>
